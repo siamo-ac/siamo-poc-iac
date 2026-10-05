@@ -21,6 +21,10 @@ two ways, to show where each tool belongs:
   per environment.
 - **`docs/terraform-vs-helm.md`** — when to reach for which, and how they
   cooperate.
+- **`docs/config-management.md`** — configuration management best
+  practices (desired state, layered env overrides, secrets as references,
+  idempotence, drift detection) with a concrete env-layered Helm values
+  example.
 
 **This POC is config + docs** — nothing runs. It validates configs and explains
 the split. That is the honest scope.
@@ -58,6 +62,11 @@ helm template orders ./orders --namespace siamo-demo   # render manifests, no cl
 - `docs/terraform-vs-helm.md` explains the split: Terraform = platform
   resources that outlive deploys; Helm = versioned app releases per
   environment.
+- **Config layering works** (from `helm/`):
+  `helm template orders ./orders -f ../docs/values-prod.example.yaml`
+  renders prod overrides (HPA replica bounds, resources, pinned image tag)
+  on top of the unchanged base — see `docs/config-management.md` for the
+  practices behind it.
 
 ## Honest limits
 

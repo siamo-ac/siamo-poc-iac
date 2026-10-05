@@ -1,0 +1,21 @@
+# Example PROD delta for the orders chart — see docs/config-management.md.
+# This is a DELTA, not a copy of ../helm/orders/values.yaml: only the keys
+# that differ in prod are listed; everything else inherits from the base.
+# Render with (from the helm/ directory — the chart's own values.yaml loads
+# automatically, then this delta applies on top):
+#   helm template orders ./orders -f ../docs/values-prod.example.yaml --namespace siamo-prod
+autoscaling:
+  minReplicas: 3
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 60
+
+resources:
+  requests:
+    cpu: "250m"
+    memory: "256Mi"
+  limits:
+    cpu: "1000m"
+    memory: "1Gi"
+
+image:
+  tag: v1.4.2
