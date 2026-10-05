@@ -1,0 +1,10 @@
+# The Siamo orders demo: frontend + backend with autoscaling.
+#
+# Get started:
+#   helm install orders ./orders --namespace {{ .Values.namespace }} --create-namespace
+#
+# The chart renders Deployments, ClusterIP Services and HorizontalPodAutoscalers
+# for each entry in .Values.services.
+{{- range .Values.services }}
+# - {{ .name }} on port {{ .port }}
+{{- end }}

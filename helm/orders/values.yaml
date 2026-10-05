@@ -1,0 +1,33 @@
+# Default values for the orders chart.
+# `helm install orders ./orders` renders Deployments, Services and HPAs for
+# both demo services.
+
+namespace: siamo-demo
+
+image:
+  repository: siamo/orders
+  tag: demo
+  pullPolicy: IfNotPresent
+
+# One entry per service; the templates loop over this list.
+services:
+  - name: frontend
+    port: 8081
+    replicas: 2
+  - name: backend
+    port: 8082
+    replicas: 2
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 70
